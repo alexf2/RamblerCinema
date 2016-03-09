@@ -39,6 +39,7 @@ namespace Rambler.Cinema.EntFrameworkDB
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Person> Persons { get; set; }
+        public virtual DbSet<ContactPerson> ContactPersons { get; set; }
         public virtual DbSet<Phone> Phones { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
 
@@ -91,6 +92,26 @@ namespace Rambler.Cinema.EntFrameworkDB
                   cs.ToTable("Cinema_ContactPerson");
               });
 
+            modelBuilder.Entity<DAL.Entities.Cinema>()
+              .HasMany<Phone>(s => s.Phones)
+              .WithMany(c => c.Cinemas)
+              .Map(cs =>
+              {
+                  cs.MapLeftKey("CinemaId");
+                  cs.MapRightKey("PhoneId");
+                  cs.ToTable("Cinema_Phone");
+              });
+
+            modelBuilder.Entity<DAL.Entities.ContactPerson>()
+              .HasMany<Phone>(s => s.Phones)
+              .WithMany(c => c.ContactPersons)
+              .Map(cs =>
+              {
+                  cs.MapLeftKey("PersonId");
+                  cs.MapRightKey("PhoneId");
+                  cs.ToTable("Person_Phone");
+              });
+
             //turn off cascading del. on supervisor person
             modelBuilder.Entity<DAL.Entities.Cinema>()
                 .HasRequired(e => e.Supervisor)                
@@ -99,21 +120,21 @@ namespace Rambler.Cinema.EntFrameworkDB
                 .WillCascadeOnDelete(false);
 
 
-            modelBuilder.Entity<ContactPerson>()
+            /*modelBuilder.Entity<ContactPerson>()
                 .HasMany(e => e.Phones)
-                .WithOptional(e=>e.Person)
-                .WillCascadeOnDelete(true);
+                .WithOptional(e=>e.ContactPerson)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<DAL.Entities.Cinema>()
                 .HasMany(e => e.Phones)
                 .WithOptional(e => e.Cinema)
-                .WillCascadeOnDelete(true);
+                .WillCascadeOnDelete(false);*/
 
 
             /*modelBuilder.Entity<Phone>()
-                .HasMany<ContactPerson>(s => s.Person)
-                .WithOptional(c => c.Phones)
-                .WillCascadeOnDelete();*/
+                .HasRequired<ContactPerson>(s => s.ContactPerson)
+                .WithOptional(c => c.)
+                .WillCascadeOnDelete(true);*/
 
 
 
@@ -132,6 +153,7 @@ namespace Rambler.Cinema.EntFrameworkDB
             {
                 f.FilmSessions.RegisterDeleteOnRemove(this);  
                 f.Phones.RegisterDeleteOnRemove(this);
+                //f.Contacts.RegisterDeleteOnRemove(this);
             });
 
             this.RegisterForDelete<ContactPerson>(f =>

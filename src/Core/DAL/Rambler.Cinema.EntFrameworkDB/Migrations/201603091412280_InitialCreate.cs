@@ -98,18 +98,12 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
                         PhoneId = c.Int(nullable: false, identity: true),
                         Number = c.String(nullable: false, maxLength: 32, unicode: false),
                         PhoneType = c.Int(),
-                        PersonId = c.Int(),
-                        CinemaId = c.Int(),
                         TimeStamp = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreated = c.DateTime(nullable: false),
                         DateUpdated = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.PhoneId)
-                .ForeignKey("dbo.Person", t => t.PersonId, cascadeDelete: true)
-                .ForeignKey("dbo.Cinema", t => t.CinemaId, cascadeDelete: true)
-                .Index(t => t.Number, name: "UX_Phone_Number")
-                .Index(t => t.PersonId)
-                .Index(t => t.CinemaId);
+                .Index(t => t.Number, name: "UX_Phone_Number");
             
             CreateTable(
                 "dbo.Session",
@@ -161,6 +155,19 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
                 .Index(t => t.Name, unique: true, name: "UX_Genre_Name");
             
             CreateTable(
+                "dbo.Person_Phone",
+                c => new
+                    {
+                        PersonId = c.Int(nullable: false),
+                        PhoneId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.PersonId, t.PhoneId })
+                .ForeignKey("dbo.Person", t => t.PersonId, cascadeDelete: true)
+                .ForeignKey("dbo.Phone", t => t.PhoneId, cascadeDelete: true)
+                .Index(t => t.PersonId)
+                .Index(t => t.PhoneId);
+            
+            CreateTable(
                 "dbo.Cinema_ContactPerson",
                 c => new
                     {
@@ -173,24 +180,43 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
                 .Index(t => t.CinemaId)
                 .Index(t => t.PersonId);
             
+            CreateTable(
+                "dbo.Cinema_Phone",
+                c => new
+                    {
+                        CinemaId = c.Int(nullable: false),
+                        PhoneId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.CinemaId, t.PhoneId })
+                .ForeignKey("dbo.Cinema", t => t.CinemaId, cascadeDelete: true)
+                .ForeignKey("dbo.Phone", t => t.PhoneId, cascadeDelete: true)
+                .Index(t => t.CinemaId)
+                .Index(t => t.PhoneId);
+            
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.Cinema", "SupervisorId", "dbo.Person");
-            DropForeignKey("dbo.Phone", "CinemaId", "dbo.Cinema");
+            DropForeignKey("dbo.Cinema_Phone", "PhoneId", "dbo.Phone");
+            DropForeignKey("dbo.Cinema_Phone", "CinemaId", "dbo.Cinema");
             DropForeignKey("dbo.Session", "FilmId", "dbo.Film");
             DropForeignKey("dbo.Film", "ProducerId", "dbo.Person");
             DropForeignKey("dbo.Film", "GenreId", "dbo.Genre");
             DropForeignKey("dbo.Session", "CinemaId", "dbo.Cinema");
             DropForeignKey("dbo.Cinema_ContactPerson", "PersonId", "dbo.Person");
             DropForeignKey("dbo.Cinema_ContactPerson", "CinemaId", "dbo.Cinema");
-            DropForeignKey("dbo.Phone", "PersonId", "dbo.Person");
+            DropForeignKey("dbo.Person_Phone", "PhoneId", "dbo.Phone");
+            DropForeignKey("dbo.Person_Phone", "PersonId", "dbo.Person");
             DropForeignKey("dbo.Person", "DepartmentId", "dbo.Department");
             DropForeignKey("dbo.Cinema", "AddressId", "dbo.Address");
             DropForeignKey("dbo.Address", "CityId", "dbo.City");
+            DropIndex("dbo.Cinema_Phone", new[] { "PhoneId" });
+            DropIndex("dbo.Cinema_Phone", new[] { "CinemaId" });
             DropIndex("dbo.Cinema_ContactPerson", new[] { "PersonId" });
             DropIndex("dbo.Cinema_ContactPerson", new[] { "CinemaId" });
+            DropIndex("dbo.Person_Phone", new[] { "PhoneId" });
+            DropIndex("dbo.Person_Phone", new[] { "PersonId" });
             DropIndex("dbo.Genre", "UX_Genre_Name");
             DropIndex("dbo.Film", new[] { "GenreId" });
             DropIndex("dbo.Film", new[] { "ProducerId" });
@@ -198,8 +224,6 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
             DropIndex("dbo.Film", "IX_Film_Name");
             DropIndex("dbo.Session", new[] { "CinemaId" });
             DropIndex("dbo.Session", new[] { "FilmId" });
-            DropIndex("dbo.Phone", new[] { "CinemaId" });
-            DropIndex("dbo.Phone", new[] { "PersonId" });
             DropIndex("dbo.Phone", "UX_Phone_Number");
             DropIndex("dbo.Department", "UX_Department_Name");
             DropIndex("dbo.Person", new[] { "DepartmentId" });
@@ -210,7 +234,9 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
             DropIndex("dbo.City", "UX_City_Name");
             DropIndex("dbo.Address", "IX_Address_ZipCode");
             DropIndex("dbo.Address", new[] { "CityId" });
+            DropTable("dbo.Cinema_Phone");
             DropTable("dbo.Cinema_ContactPerson");
+            DropTable("dbo.Person_Phone");
             DropTable("dbo.Genre");
             DropTable("dbo.Film");
             DropTable("dbo.Session");

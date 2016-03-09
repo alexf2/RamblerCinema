@@ -83,7 +83,7 @@ namespace Rambler.Cinema.EntFrameworkDB
 
         void AssignDates()
         {
-            var entities = ChangeTracker.Entries().Where(x => x.Entity is BaseEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
+            var entities = ChangeTracker.Entries().Where(x => x.Entity is BaseEntity && (x.State == EntityState.Added || x.State == EntityState.Modified)).ToArray();
 
             foreach (var entity in entities)
             {

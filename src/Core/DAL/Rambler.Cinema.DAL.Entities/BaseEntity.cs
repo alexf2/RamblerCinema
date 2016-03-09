@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Rambler.Cinema.DAL.Entities
 {
     public class BaseEntity
-    {
+    {        
         [Timestamp]
         public byte[] TimeStamp { get; set; }
 

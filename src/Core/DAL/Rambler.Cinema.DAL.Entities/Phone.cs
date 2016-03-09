@@ -29,13 +29,18 @@ namespace Rambler.Cinema.DAL.Entities
 
         string DebuggerDisplay => $"{Number} is {PhoneType}";
 
+        ICollection<ContactPerson> _сontactPersons;
+        public virtual ICollection<ContactPerson> ContactPersons
+        {
+            get { return _сontactPersons ?? (_сontactPersons = new List<ContactPerson>()); }
+            set { _сontactPersons = value; }
+        }
 
-        public virtual int? PersonId { get; set; }
-        [ForeignKey("PersonId")]        
-        public virtual ContactPerson Person { get; set; }
-
-        public virtual int? CinemaId { get; set; }
-        [ForeignKey("CinemaId")]
-        public virtual Cinema Cinema { get; set; }
+        ICollection<Cinema> _cinemas;
+        public virtual ICollection<Cinema> Cinemas
+        {
+            get { return _cinemas ?? (_cinemas = new List<Cinema>()); }
+            set { _cinemas = value; }
+        }
     }
 }

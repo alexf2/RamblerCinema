@@ -13,7 +13,7 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201603090028000_InitialCreate"; }
+            get { return "201603091238120_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

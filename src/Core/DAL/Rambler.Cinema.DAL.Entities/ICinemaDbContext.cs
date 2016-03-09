@@ -8,6 +8,7 @@ namespace Rambler.Cinema.DAL.Entities
         DbSet<Address> Addresses { get; set; }
         DbSet<Department> Departments { get; set; }
         DbSet<Person> Persons { get; set; }
+        DbSet<ContactPerson> ContactPersons { get; set; }
         DbSet<Phone> Phones { get; set; }
         DbSet<Genre> Genres { get; set; }
 

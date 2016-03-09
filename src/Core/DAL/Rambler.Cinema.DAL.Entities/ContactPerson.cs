@@ -7,8 +7,7 @@ namespace Rambler.Cinema.DAL.Entities
 {
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
     public class ContactPerson: Person
-    {
-        
+    {                
         ICollection<Phone> _phones;
         public virtual ICollection<Phone> Phones
         {
@@ -23,14 +22,13 @@ namespace Rambler.Cinema.DAL.Entities
         public virtual int DepartmentId { get; set; }
         [ForeignKey("DepartmentId")]
         [Required]
-        public virtual Department Department { get; set; }      
-                
+        public virtual Department Department { get; set; }
 
-        ICollection<Cinema> _cinemas;
+        ICollection<Cinema> _cinema;
         public virtual ICollection<Cinema> Cinemas
         {
-            get { return _cinemas ?? (_cinemas = new List<Cinema>()); }
-            set { _cinemas = value; }
+            get { return _cinema ?? (_cinema = new List<Cinema>()); }
+            set { _cinema = value; }
         }
 
         string DebuggerDisplay => $"{GivenName} {MiddleName} {SurName}: {Title} in {Department?.Name}";

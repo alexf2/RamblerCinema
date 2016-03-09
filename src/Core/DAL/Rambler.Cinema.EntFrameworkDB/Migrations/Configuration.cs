@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq.Expressions;
@@ -67,7 +68,7 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
                 .Fill(c => c.Number).AsPhoneNumber()
                 .Fill(c => c.PhoneType).WithRandom(new PhoneType?[]{PhoneType.Work, PhoneType.Home, PhoneType.Cell, PhoneType.Main, PhoneType.Additional});
 
-            var phonesPull = A.ListOf<Phone>(500).DistinctBy(c => c.Number).ToList();            
+            //var phonesPull = A.ListOf<Phone>(500).DistinctBy(c => c.Number).ToList();            
             //context.Phones.AddRange(phonesPull);
 
 
@@ -90,7 +91,7 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
                     "Usher", "Cleaning woman"
                 })
                 .Fill(c => c.Department, (c) => DepByTitle(c.Title, deps))
-                .Fill(c => c.Phones, GetItems(phonesPull, rnd.Next(1, 4), context));
+                .Fill(c => c.Phones, GetPhones(rnd.Next(1, 4)));
 
             var persons = A.ListOf<Person>(100).ToList();
             var cpersons = A.ListOf<ContactPerson>(100).ToList();
@@ -196,32 +197,34 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
                 .Fill(c => c.Name, (c) => fnames[cinemaIt.Next()])
                 .Fill(c => c.HallsNumber).WithRandom(new[] {1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4, 4, 5, 6})
                 .Fill(c => c.Address, (ñ) => A.New<Address>())
-                .Fill(c => c.Phones, (c) => GetItems(phonesPull, rnd.Next(1, 6), context))
+                .Fill(c => c.Phones, (c) => GetPhones(rnd.Next(1, 6)))
                 .Fill(c => c.Supervisor).WithRandom(persons)
-                .Fill(c => c.Contacts, (c) => GetItems(cpersons, 8, context));
+                .Fill(c => c.Contacts, (c) => GetItems(cpersons, rnd.Next(1, 8), context));        
 
             var cinemas = A.ListOf<DAL.Entities.Cinema>(fnames.Length).ToList();
 
             context.Cinemas.AddRange(cinemas);
 
-            context.SaveChanges();            
-        }
+            context.SaveChanges();
 
+            /*foreach (var cinema in cinemas)
+            {
+                var cnt = rnd.Next(1, 8);
+                while (cnt-- > 0)
+                    cinema.Contacts.Add(A.New<ContactPerson>());
+            }
+            context.SaveChanges();*/
+        }
+                
+        static ICollection<Phone> GetPhones(int count)
+        {
+            return new HashSet<Phone>(A.ListOf<Phone>(count).ToArray());
+        }
         
-        static Random _rnd = new Random();
-        static ICollection<ContactPerson> GetRandom(IList<ContactPerson> p, int countMax)
-        {            
-            int cnt = _rnd.Next(1, countMax);
-            var res = new List<ContactPerson>(cnt);
-            for (int i = 0; i < cnt; ++i)
-                res.Add(p[_rnd.Next(0, p.Count)]);
-
-            return res.Distinct().ToList();
-        }
 
         static ICollection<T> GetItems<T>(IList<T> pull, int cnt, DbContext ctx) where T:class
         {            
-            var res = new List<T>(cnt);
+            var res = new HashSet<T>();
             for (int i = Math.Min(cnt, pull.Count); i > 0; --i)
             {
                 var latsIdx = pull.Count - 1;
@@ -252,6 +255,7 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
             return deps.First(d => d.Name == _depsMap[title]);
         }
 
+        static readonly Random _rnd = new Random();
         static string GetZip(Address a)
         {
             return _rnd.Next(100000, 200000).ToString();
