@@ -1,0 +1,108 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rambler.Cinema.ServerContract", "src\Contracts\Rambler.Cinema.ServerContract\Rambler.Cinema.ServerContract.csproj", "{12CC156C-E4C0-4960-9C16-081B8E821464}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contracts", "Contracts", "{1D2C7CA1-E096-409C-A2B4-66E42DB349DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rambler.Shared.Contract", "src\Contracts\Rambler.Shared.Contract\Rambler.Shared.Contract.csproj", "{1A19BA64-13FC-4781-9FB6-792B6158D8DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{D5A26D80-7E38-406E-8515-DCC203D0E431}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{1292AB93-87F7-487D-B206-4EED42FE134B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{8C2ACE6C-BC77-455D-AC18-E2080469B563}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{16F29C0F-C93F-4563-BAA4-033DF53C6B19}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6DB3A6FB-6EF1-41B0-A30E-E020BD7C358A}"
+	ProjectSection(SolutionItems) = preProject
+		nuget.config = nuget.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rambler.Cinema.Core.Contract", "src\Core\Rambler.Cinema.Core.Contract\Rambler.Cinema.Core.Contract.csproj", "{76E79584-24E9-4B7C-93F7-34779DC7D83F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{B9F1F18C-E761-437B-A777-431DF6DAFB9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rambler.Cinema.DAL.Entities", "src\Core\DAL\Rambler.Cinema.DAL.Entities\Rambler.Cinema.DAL.Entities.csproj", "{02307876-D1AE-46BB-9466-57C08562D43E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabmler.Cinema.Linq2SqlRepositories", "src\Core\DAL\Rabmler.Cinema.Linq2SqlRepositories\Rabmler.Cinema.Linq2SqlRepositories.csproj", "{78024809-3512-4A33-B78A-7B50F198C7D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rambler.Cinema.EntFrameworkDB", "src\Core\DAL\Rambler.Cinema.EntFrameworkDB\Rambler.Cinema.EntFrameworkDB.csproj", "{049396B7-F097-48BD-BE81-E2F454DDE8E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rambler.Cinema.DataProviders", "src\Core\Rambler.Cinema.DataProviders\Rambler.Cinema.DataProviders.csproj", "{07D03E85-6CF2-456F-986A-1463F82B43C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedHelpers", "SharedHelpers", "{5215AD1E-543B-4C07-9659-F88E13161A31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rambler.Cinema.OwinService", "src\Core\Rambler.Cinema.OwinService\Rambler.Cinema.OwinService.csproj", "{60A9A2E1-986B-47CF-8212-595312A53E41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rambler.Cinema.IisHost", "src\Hosts\Rambler.Cinema.IisHost\Rambler.Cinema.IisHost.csproj", "{033840D7-FFEF-4388-8E05-DFF6BF692D38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rambler.WebApiHelpers", "src\SharedHelpers\Rambler.WebApiHelpers\Rambler.WebApiHelpers.csproj", "{C2E3B2E3-B154-4BD1-A79E-CC9A1C33422A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12CC156C-E4C0-4960-9C16-081B8E821464}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12CC156C-E4C0-4960-9C16-081B8E821464}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12CC156C-E4C0-4960-9C16-081B8E821464}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12CC156C-E4C0-4960-9C16-081B8E821464}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A19BA64-13FC-4781-9FB6-792B6158D8DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A19BA64-13FC-4781-9FB6-792B6158D8DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A19BA64-13FC-4781-9FB6-792B6158D8DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A19BA64-13FC-4781-9FB6-792B6158D8DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76E79584-24E9-4B7C-93F7-34779DC7D83F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76E79584-24E9-4B7C-93F7-34779DC7D83F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76E79584-24E9-4B7C-93F7-34779DC7D83F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76E79584-24E9-4B7C-93F7-34779DC7D83F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02307876-D1AE-46BB-9466-57C08562D43E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02307876-D1AE-46BB-9466-57C08562D43E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02307876-D1AE-46BB-9466-57C08562D43E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02307876-D1AE-46BB-9466-57C08562D43E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78024809-3512-4A33-B78A-7B50F198C7D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78024809-3512-4A33-B78A-7B50F198C7D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78024809-3512-4A33-B78A-7B50F198C7D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78024809-3512-4A33-B78A-7B50F198C7D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{049396B7-F097-48BD-BE81-E2F454DDE8E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{049396B7-F097-48BD-BE81-E2F454DDE8E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{049396B7-F097-48BD-BE81-E2F454DDE8E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{049396B7-F097-48BD-BE81-E2F454DDE8E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07D03E85-6CF2-456F-986A-1463F82B43C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07D03E85-6CF2-456F-986A-1463F82B43C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07D03E85-6CF2-456F-986A-1463F82B43C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07D03E85-6CF2-456F-986A-1463F82B43C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60A9A2E1-986B-47CF-8212-595312A53E41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60A9A2E1-986B-47CF-8212-595312A53E41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60A9A2E1-986B-47CF-8212-595312A53E41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60A9A2E1-986B-47CF-8212-595312A53E41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{033840D7-FFEF-4388-8E05-DFF6BF692D38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{033840D7-FFEF-4388-8E05-DFF6BF692D38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{033840D7-FFEF-4388-8E05-DFF6BF692D38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{033840D7-FFEF-4388-8E05-DFF6BF692D38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2E3B2E3-B154-4BD1-A79E-CC9A1C33422A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2E3B2E3-B154-4BD1-A79E-CC9A1C33422A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2E3B2E3-B154-4BD1-A79E-CC9A1C33422A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2E3B2E3-B154-4BD1-A79E-CC9A1C33422A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{12CC156C-E4C0-4960-9C16-081B8E821464} = {1D2C7CA1-E096-409C-A2B4-66E42DB349DB}
+		{1A19BA64-13FC-4781-9FB6-792B6158D8DB} = {1D2C7CA1-E096-409C-A2B4-66E42DB349DB}
+		{76E79584-24E9-4B7C-93F7-34779DC7D83F} = {1292AB93-87F7-487D-B206-4EED42FE134B}
+		{B9F1F18C-E761-437B-A777-431DF6DAFB9B} = {1292AB93-87F7-487D-B206-4EED42FE134B}
+		{02307876-D1AE-46BB-9466-57C08562D43E} = {B9F1F18C-E761-437B-A777-431DF6DAFB9B}
+		{78024809-3512-4A33-B78A-7B50F198C7D8} = {B9F1F18C-E761-437B-A777-431DF6DAFB9B}
+		{049396B7-F097-48BD-BE81-E2F454DDE8E1} = {B9F1F18C-E761-437B-A777-431DF6DAFB9B}
+		{07D03E85-6CF2-456F-986A-1463F82B43C1} = {1292AB93-87F7-487D-B206-4EED42FE134B}
+		{60A9A2E1-986B-47CF-8212-595312A53E41} = {1292AB93-87F7-487D-B206-4EED42FE134B}
+		{033840D7-FFEF-4388-8E05-DFF6BF692D38} = {8C2ACE6C-BC77-455D-AC18-E2080469B563}
+		{C2E3B2E3-B154-4BD1-A79E-CC9A1C33422A} = {5215AD1E-543B-4C07-9659-F88E13161A31}
+	EndGlobalSection
+EndGlobal

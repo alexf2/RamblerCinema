@@ -1,0 +1,5 @@
+﻿Enable-Migrations -MigrationsDirectory Migrations -ContextTypeName CinemaDbContext -ContextAssemblyName Rambler.Cinema.EntFrameworkDB -ConnectionStringName Cinema -ProjectName  Rambler.Cinema.EntFrameworkDB -StartupProjectName Rambler.Cinema.IisHost
+
+Add-Migration -IgnoreChanges -ProjectName Rambler.Cinema.EntFrameworkDB -StartupProjectName Rambler.Cinema.IisHost -ConnectionStringName Cinema -Name InitialCreate -ConfigurationTypeName Rambler.Cinema.EntFrameworkDB.Migrations.Configuration
+
+Update-Database -Script -ProjectName Rambler.Cinema.EntFrameworkDB -StartupProjectName Rambler.Cinema.IisHost -ConfigurationTypeName Rambler.Cinema.EntFrameworkDB.Migrations.Configuration -ConnectionStringName Cinema -SourceMigration $InitialDatabase
