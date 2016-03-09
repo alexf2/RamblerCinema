@@ -66,11 +66,7 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
             A.Configure<Phone>()
                 .Fill(c => c.PhoneId, 0)
                 .Fill(c => c.Number).AsPhoneNumber()
-                .Fill(c => c.PhoneType).WithRandom(new PhoneType?[]{PhoneType.Work, PhoneType.Home, PhoneType.Cell, PhoneType.Main, PhoneType.Additional});
-
-            //var phonesPull = A.ListOf<Phone>(500).DistinctBy(c => c.Number).ToList();            
-            //context.Phones.AddRange(phonesPull);
-
+                .Fill(c => c.PhoneType).WithRandom(new PhoneType?[]{PhoneType.Work, PhoneType.Home, PhoneType.Cell, PhoneType.Main, PhoneType.Additional});            
 
             A.Configure<Person>()
                 .Fill(c => c.PersonId, 0)
@@ -94,10 +90,7 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
                 .Fill(c => c.Phones, GetPhones(rnd.Next(1, 4)));
 
             var persons = A.ListOf<Person>(100).ToList();
-            var cpersons = A.ListOf<ContactPerson>(100).ToList();
-            //context.Persons.AddRange(persons);
-
-            //context.Persons.AddRange(cpersons);                        
+            var cpersons = A.ListOf<ContactPerson>(100).ToList();            
 
 
             var genres = new Genre[]
@@ -206,14 +199,6 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
             context.Cinemas.AddRange(cinemas);
 
             context.SaveChanges();
-
-            /*foreach (var cinema in cinemas)
-            {
-                var cnt = rnd.Next(1, 8);
-                while (cnt-- > 0)
-                    cinema.Contacts.Add(A.New<ContactPerson>());
-            }
-            context.SaveChanges();*/
         }
                 
         static ICollection<Phone> GetPhones(int count)
