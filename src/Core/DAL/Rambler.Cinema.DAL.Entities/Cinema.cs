@@ -22,8 +22,7 @@ namespace Rambler.Cinema.DAL.Entities
         [Range(typeof(int), "1", "10")]
         public virtual int HallsNumber { get; set; }
 
-        public virtual int AddressId { get; set; }
-        [Required]
+        public virtual int AddressId { get; set; }        
         [ForeignKey("AddressId")]
         public virtual Address Address { get; set; }
 

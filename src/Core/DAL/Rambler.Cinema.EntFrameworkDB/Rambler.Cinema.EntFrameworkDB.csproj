@@ -56,12 +56,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CinemaDbContext.cs" />
+    <Compile Include="CustomDbInitializer.cs" />
     <Compile Include="EntityDbContextBase.cs" />
     <Compile Include="DataExtensions.cs" />
     <Compile Include="EnumerableExtensions.cs" />
-    <Compile Include="Migrations\201603091412280_InitialCreate.cs" />
-    <Compile Include="Migrations\201603091412280_InitialCreate.Designer.cs">
-      <DependentUpon>201603091412280_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201603092238299_InitialCreate.cs" />
+    <Compile Include="Migrations\201603092238299_InitialCreate.Designer.cs">
+      <DependentUpon>201603092238299_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,8 +81,8 @@
     <Content Include="migration-scripts.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603091412280_InitialCreate.resx">
-      <DependentUpon>201603091412280_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201603092238299_InitialCreate.resx">
+      <DependentUpon>201603092238299_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

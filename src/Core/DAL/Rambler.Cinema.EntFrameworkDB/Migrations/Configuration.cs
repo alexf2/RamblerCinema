@@ -17,13 +17,26 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
 
     internal sealed class Configuration : DbMigrationsConfiguration<Rambler.Cinema.EntFrameworkDB.CinemaDbContext>
     {
+        sealed class SequenceIterator
+        {
+            int _val;
+            public SequenceIterator(int start = 0)
+            {
+                _val = start;
+            }
+            public int Next()
+            {
+                return _val++;
+            }
+        }
+
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
             MigrationsDirectory = @"Migrations";
         }
 
-        protected override void Seed(Rambler.Cinema.EntFrameworkDB.CinemaDbContext context)
+        protected override void Seed (CinemaDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -40,6 +53,8 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
 
             //System.Diagnostics.Debugger.Launch();
 
+            context.Configuration.AutoDetectChangesEnabled = false;
+
             var rnd = new Random();
 
             A.Configure<City>()
@@ -54,7 +69,7 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
             var depaIterator = new SequenceIterator();
             A.Configure<Department>()
                 .Fill(c => c.DepartmentId, 0)
-                .Fill(c => c.Name, (Department d) => depNames[ depaIterator.Next() ]);
+                .Fill(c => c.Name, (d) => depNames[ depaIterator.Next() ]);
             
 
             var cities = A.ListOf<City>(50).DistinctBy(c => c.Name).ToList();
@@ -118,7 +133,7 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
 
             context.SaveChanges();            
 
-            var fnames = new string[]
+            var filmNames = new []
             {
                 "Cafe Oto",
                 "Catford Constitutional Club",
@@ -187,33 +202,30 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
             var cinemaIt = new SequenceIterator();
             A.Configure<DAL.Entities.Cinema>()
                 .Fill(c => c.CinemaId, 0)
-                .Fill(c => c.Name, (c) => fnames[cinemaIt.Next()])
+                .Fill(c => c.Name, (c) => filmNames[cinemaIt.Next()])
                 .Fill(c => c.HallsNumber).WithRandom(new[] {1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4, 4, 5, 6})
                 .Fill(c => c.Address, (ñ) => A.New<Address>())
                 .Fill(c => c.Phones, (c) => GetPhones(rnd.Next(1, 6)))
                 .Fill(c => c.Supervisor).WithRandom(persons)
-                .Fill(c => c.Contacts, (c) => GetItems(cpersons, rnd.Next(1, 8), context));        
+                .Fill(c => c.Contacts, (c) => PullItems(cpersons, rnd.Next(1, 8)));        
 
-            var cinemas = A.ListOf<DAL.Entities.Cinema>(fnames.Length).ToList();
+            var cinemas = A.ListOf<DAL.Entities.Cinema>(filmNames.Length).ToList();
 
             context.Cinemas.AddRange(cinemas);
 
+            context.Configuration.AutoDetectChangesEnabled = true;
             context.SaveChanges();
         }
                 
-        static ICollection<Phone> GetPhones(int count)
-        {
-            return new HashSet<Phone>(A.ListOf<Phone>(count).ToArray());
-        }
-        
+        static ICollection<Phone> GetPhones(int count) => A.ListOf<Phone>(count).ToArray();
 
-        static ICollection<T> GetItems<T>(IList<T> pull, int cnt, DbContext ctx) where T:class
+
+        static ICollection<T> PullItems<T>(IList<T> pull, int cnt) where T:class
         {            
-            var res = new HashSet<T>();
+            var res = new List<T>();
             for (int i = Math.Min(cnt, pull.Count); i > 0; --i)
             {
-                var latsIdx = pull.Count - 1;
-                //ctx.Entry(pull[latsIdx]).State = EntityState.Added;
+                var latsIdx = pull.Count - 1;                
                 
                 res.Add( pull[latsIdx] );
                 pull.RemoveAt(latsIdx);
@@ -221,7 +233,7 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
             return res;
         }
 
-        static Dictionary<string, string> _depsMap = new Dictionary<string, string>()
+        static readonly Dictionary<string, string> _depsMap = new Dictionary<string, string>()
         {
             { "Accountant","Accounting"},
             { "Cashir", "Cashbox"},
@@ -235,28 +247,9 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
             { "Usher", "Services"},
             { "Cleaning woman", "Services"}
         };
-        static Department DepByTitle(string title, IList<Department> deps)
-        {
-            return deps.First(d => d.Name == _depsMap[title]);
-        }
+        static Department DepByTitle(string title, IList<Department> deps) => deps.First(d => String.Equals(d.Name, _depsMap[title], StringComparison.OrdinalIgnoreCase));
 
         static readonly Random _rnd = new Random();
-        static string GetZip(Address a)
-        {
-            return _rnd.Next(100000, 200000).ToString();
-        }
-    }
-
-    class SequenceIterator
-    {
-        int _val;
-        public SequenceIterator(int start = 0)
-        {
-            _val = start;
-        }
-        public int Next()
-        {
-            return _val++;
-        }
-    }
+        static string GetZip(Address a) => _rnd.Next(100000, 200000).ToString();
+    }    
 }

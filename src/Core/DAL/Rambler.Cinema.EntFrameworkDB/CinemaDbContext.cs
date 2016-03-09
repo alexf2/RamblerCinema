@@ -5,7 +5,6 @@ using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Diagnostics;
 using Rambler.Cinema.DAL.Entities;
-using Rambler.Cinema.EntFrameworkDB.Migrations;
 
 namespace Rambler.Cinema.EntFrameworkDB
 {
@@ -13,7 +12,7 @@ namespace Rambler.Cinema.EntFrameworkDB
     {
         static CinemaDbContext()
         {
-            Database.SetInitializer<CinemaDbContext>(new MigrateDatabaseToLatestVersion<CinemaDbContext, Configuration>());
+            Database.SetInitializer<CinemaDbContext>(new CustomDbInitializer());
         }
 
         public CinemaDbContext()
@@ -36,9 +35,9 @@ namespace Rambler.Cinema.EntFrameworkDB
         }
 
         public virtual DbSet<City> Cities { get; set; }
-        public virtual DbSet<Address> Addresses { get; set; }
+        
         public virtual DbSet<Department> Departments { get; set; }
-        public virtual DbSet<Person> Persons { get; set; }
+        public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<ContactPerson> ContactPersons { get; set; }
         public virtual DbSet<Phone> Phones { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
@@ -55,7 +54,7 @@ namespace Rambler.Cinema.EntFrameworkDB
 
             modelBuilder.Entity<Address>()
                 .Property(e => e.ZipCode)
-                .IsUnicode(false); //to use varchar instead of nvarchar
+                .IsUnicode(false); //to use varchar instead of nvarchar 
 
             modelBuilder.Entity<Phone>()
                 .Property(e => e.Number)

@@ -4,17 +4,17 @@ using System.Diagnostics;
 
 namespace Rambler.Cinema.DAL.Entities
 {
-    [DebuggerDisplay("{DebuggerDisplay,nq}")]
+    [DebuggerDisplay("{DebuggerDisplay,nq}")]    
     public class Address: BaseEntity
     {
-        [Key]        
+        [Key]
         public virtual int AddressId { get; set; }
-    
+
         [Required]
-        [MaxLength(512)]
+        [MaxLength(512)]        
         public virtual string Line1 { get; set; }
 
-        [MaxLength(512)]
+        [MaxLength(512)]        
         public virtual string Line2 { get; set; }
         
         public virtual int CityId { get; set; }
@@ -25,6 +25,7 @@ namespace Rambler.Cinema.DAL.Entities
         [MinLength(5), MaxLength(10)]
         [Index("IX_Address_ZipCode", IsClustered = false, IsUnique = false)]
         public virtual string ZipCode { get; set; }
+        
 
         string DebuggerDisplay => $"City: {City?.Name}/{CityId}; [{Line1}], [{Line2}]; Zip: {ZipCode}";
     }

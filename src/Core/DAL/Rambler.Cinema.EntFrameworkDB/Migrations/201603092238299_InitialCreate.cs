@@ -8,6 +8,26 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
         public override void Up()
         {
             CreateTable(
+                "dbo.Cinema",
+                c => new
+                    {
+                        CinemaId = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 64),
+                        HallsNumber = c.Int(nullable: false),
+                        AddressId = c.Int(nullable: false),
+                        SupervisorId = c.Int(nullable: false),
+                        TimeStamp = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreated = c.DateTime(nullable: false),
+                        DateUpdated = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.CinemaId)
+                .ForeignKey("dbo.Address", t => t.AddressId, cascadeDelete: true)
+                .ForeignKey("dbo.Person", t => t.SupervisorId)
+                .Index(t => t.Name, unique: true, name: "UX_Cinema_Name")
+                .Index(t => t.AddressId)
+                .Index(t => t.SupervisorId);
+            
+            CreateTable(
                 "dbo.Address",
                 c => new
                     {
@@ -37,26 +57,6 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
                     })
                 .PrimaryKey(t => t.CityId)
                 .Index(t => t.Name, unique: true, name: "UX_City_Name");
-            
-            CreateTable(
-                "dbo.Cinema",
-                c => new
-                    {
-                        CinemaId = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 64),
-                        HallsNumber = c.Int(nullable: false),
-                        AddressId = c.Int(nullable: false),
-                        SupervisorId = c.Int(nullable: false),
-                        TimeStamp = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                        DateCreated = c.DateTime(nullable: false),
-                        DateUpdated = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.CinemaId)
-                .ForeignKey("dbo.Address", t => t.AddressId, cascadeDelete: true)
-                .ForeignKey("dbo.Person", t => t.SupervisorId)
-                .Index(t => t.Name, unique: true, name: "UX_Cinema_Name")
-                .Index(t => t.AddressId)
-                .Index(t => t.SupervisorId);
             
             CreateTable(
                 "dbo.Person",
@@ -228,12 +228,12 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
             DropIndex("dbo.Department", "UX_Department_Name");
             DropIndex("dbo.Person", new[] { "DepartmentId" });
             DropIndex("dbo.Person", "UX_Person_Fio");
-            DropIndex("dbo.Cinema", new[] { "SupervisorId" });
-            DropIndex("dbo.Cinema", new[] { "AddressId" });
-            DropIndex("dbo.Cinema", "UX_Cinema_Name");
             DropIndex("dbo.City", "UX_City_Name");
             DropIndex("dbo.Address", "IX_Address_ZipCode");
             DropIndex("dbo.Address", new[] { "CityId" });
+            DropIndex("dbo.Cinema", new[] { "SupervisorId" });
+            DropIndex("dbo.Cinema", new[] { "AddressId" });
+            DropIndex("dbo.Cinema", "UX_Cinema_Name");
             DropTable("dbo.Cinema_Phone");
             DropTable("dbo.Cinema_ContactPerson");
             DropTable("dbo.Person_Phone");
@@ -243,9 +243,9 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
             DropTable("dbo.Phone");
             DropTable("dbo.Department");
             DropTable("dbo.Person");
-            DropTable("dbo.Cinema");
             DropTable("dbo.City");
             DropTable("dbo.Address");
+            DropTable("dbo.Cinema");
         }
     }
 }
