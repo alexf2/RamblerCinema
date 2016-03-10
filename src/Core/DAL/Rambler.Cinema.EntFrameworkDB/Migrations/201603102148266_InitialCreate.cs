@@ -109,11 +109,11 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
                 "dbo.Session",
                 c => new
                     {
+                        StartTime = c.DateTime(nullable: false),
                         FilmId = c.Int(nullable: false),
                         CinemaId = c.Int(nullable: false),
-                        StartTime = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => new { t.FilmId, t.CinemaId })
+                .PrimaryKey(t => new { t.StartTime, t.FilmId, t.CinemaId })
                 .ForeignKey("dbo.Cinema", t => t.CinemaId, cascadeDelete: true)
                 .ForeignKey("dbo.Film", t => t.FilmId, cascadeDelete: true)
                 .Index(t => t.FilmId)
