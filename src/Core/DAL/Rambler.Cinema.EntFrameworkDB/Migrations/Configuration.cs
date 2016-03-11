@@ -84,6 +84,7 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
 
                     StoreContextData(context);
             }
+            context.Configuration.AutoDetectChangesEnabled = true;
         }
 
         
