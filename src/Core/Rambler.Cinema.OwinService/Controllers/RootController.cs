@@ -1,36 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Http.Description;
+using Rambler.Cinema.Core.Contract;
+
 using Rambler.Shared.Contract.ResponseDTO;
+using Rambler.WebApiHelpers;
 
 namespace Rambler.Cinema.OwinService.Controllers
 {
     public class RootController: ApiController
     {
+        readonly IHelloProvider _prov;
+        public RootController (IHelloProvider prov)
+        {
+            _prov = prov;
+        }
+
         [ResponseType(typeof(ServiceInfo))]
         public IHttpActionResult Get()
         {
             return Ok(new ServiceInfo()
             {
                 ApplicationName = "Rambler.Cinema service",
-                ApiVersion = GetProductVersion(),
+                ApiVersion = VersionHelpers.GetProductVersion(GetType().Assembly),
                 Links = new {}
             });
         }
 
-        public static string GetProductVersion()
+        [HttpGet]
+        public IHttpActionResult Hello (string name)
         {
-            var attribute = (AssemblyInformationalVersionAttribute)Assembly
-              .GetExecutingAssembly()
-              .GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), true)
-              .Single();
-
-            return attribute.InformationalVersion;
+            return Ok(_prov.Hello(name));
         }
     }
 }

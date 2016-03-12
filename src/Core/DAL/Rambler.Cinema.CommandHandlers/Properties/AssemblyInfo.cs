@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Rabmler.Cinema.Linq2SqlRepositories")]
+[assembly: AssemblyTitle("Rambler.Cinema.CommandHandlers")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Rabmler.Cinema.Linq2SqlRepositories")]
+[assembly: AssemblyProduct("Rambler.Cinema.CommandHandlers")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("78024809-3512-4a33-b78a-7b50f198c7d8")]
+[assembly: Guid("aad665f1-aadb-4ea7-ba50-96a56c9d6b97")]
 
 // Version information for an assembly consists of the following four values:
 //

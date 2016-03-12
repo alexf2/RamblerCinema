@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rambler.Cinema.DataProviders
+namespace Rambler.Cinema.Core.Contract
 {
-    public class Class1
+    public interface IHelloProvider
     {
+        string Hello(string name);
     }
 }

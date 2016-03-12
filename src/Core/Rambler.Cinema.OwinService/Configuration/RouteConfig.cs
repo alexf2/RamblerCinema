@@ -25,6 +25,11 @@ namespace Rambler.Cinema.OwinService.Configuration
                 "DefaultHttpRoute",
                 "{controller}/{key}",
                 defaults: new { controller = "RootController", key = RouteParameter.Optional });
+
+            routes.MapHttpRoute(
+                "RpcRoute",
+                "{controller}/{action}/{name}",
+                defaults: new { name = RouteParameter.Optional });
         }
     }
 }

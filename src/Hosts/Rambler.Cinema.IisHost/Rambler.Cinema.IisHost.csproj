@@ -99,10 +99,19 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HostInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\Rambler.Cinema.Core.Contract\Rambler.Cinema.Core.Contract.csproj">
+      <Project>{76E79584-24E9-4B7C-93F7-34779DC7D83F}</Project>
+      <Name>Rambler.Cinema.Core.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Rambler.Cinema.DataProviders\Rambler.Cinema.DataProviders.csproj">
+      <Project>{07D03E85-6CF2-456F-986A-1463F82B43C1}</Project>
+      <Name>Rambler.Cinema.DataProviders</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\Rambler.Cinema.OwinService\Rambler.Cinema.OwinService.csproj">
       <Project>{60a9a2e1-986b-47cf-8212-595312a53e41}</Project>
       <Name>Rambler.Cinema.OwinService</Name>
