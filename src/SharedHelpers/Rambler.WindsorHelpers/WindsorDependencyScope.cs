@@ -6,7 +6,7 @@ using System.Web.Http.Dependencies;
 using Castle.MicroKernel.Lifestyle;
 using Castle.Windsor;
 
-namespace Rambler.Cinema.OwinService.Windsor
+namespace Rambler.WindsorHelpers
 {
     internal sealed class WindsorDependencyScope: IDependencyScope
     {
@@ -31,7 +31,7 @@ namespace Rambler.Cinema.OwinService.Windsor
 
         public void Dispose()
         {
-            IDisposable scope = Interlocked.Exchange(ref _scope, null);
+            var scope = Interlocked.Exchange(ref _scope, null);
             scope?.Dispose();
         }
     }

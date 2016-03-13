@@ -44,6 +44,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rambler.Cinema.QueryHandler
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rambler.Cinema.CommandHandlers", "src\Core\DAL\Rambler.Cinema.CommandHandlers\Rambler.Cinema.CommandHandlers.csproj", "{AAD665F1-AADB-4EA7-BA50-96A56C9D6B97}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rambler.WindsorHelpers", "src\SharedHelpers\Rambler.WindsorHelpers\Rambler.WindsorHelpers.csproj", "{DE29E0A6-DCEF-411C-AA6A-504C24C61240}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rambler.Cinrma.WindsorInstaller", "src\Core\Rambler.Cinrma.WindsorInstaller\Rambler.Cinrma.WindsorInstaller.csproj", "{7B7DC57A-0FB4-4180-88A3-4B476A3EC7E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -94,6 +98,14 @@ Global
 		{AAD665F1-AADB-4EA7-BA50-96A56C9D6B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAD665F1-AADB-4EA7-BA50-96A56C9D6B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAD665F1-AADB-4EA7-BA50-96A56C9D6B97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE29E0A6-DCEF-411C-AA6A-504C24C61240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE29E0A6-DCEF-411C-AA6A-504C24C61240}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE29E0A6-DCEF-411C-AA6A-504C24C61240}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE29E0A6-DCEF-411C-AA6A-504C24C61240}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B7DC57A-0FB4-4180-88A3-4B476A3EC7E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B7DC57A-0FB4-4180-88A3-4B476A3EC7E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B7DC57A-0FB4-4180-88A3-4B476A3EC7E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B7DC57A-0FB4-4180-88A3-4B476A3EC7E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,5 +123,7 @@ Global
 		{C2E3B2E3-B154-4BD1-A79E-CC9A1C33422A} = {5215AD1E-543B-4C07-9659-F88E13161A31}
 		{6DA869CA-3F3E-43B2-A77C-D4E8B8ED8115} = {B9F1F18C-E761-437B-A777-431DF6DAFB9B}
 		{AAD665F1-AADB-4EA7-BA50-96A56C9D6B97} = {B9F1F18C-E761-437B-A777-431DF6DAFB9B}
+		{DE29E0A6-DCEF-411C-AA6A-504C24C61240} = {5215AD1E-543B-4C07-9659-F88E13161A31}
+		{7B7DC57A-0FB4-4180-88A3-4B476A3EC7E0} = {1292AB93-87F7-487D-B206-4EED42FE134B}
 	EndGlobalSection
 EndGlobal

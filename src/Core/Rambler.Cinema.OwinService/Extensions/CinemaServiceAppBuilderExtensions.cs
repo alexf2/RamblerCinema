@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 using Microsoft.Owin.Extensions;
 using Microsoft.Owin.Infrastructure;
 using Owin;
+using Microsoft.Owin.Logging;
+using Rambler.Cinema.Core.Contract;
 using Rambler.Cinema.OwinService.Configuration;
-using Rambler.Cinema.OwinService.Windsor;
+using Rambler.Shared.Contract;
+
 
 namespace Rambler.Cinema.OwinService.Extensions
 {
@@ -16,18 +20,32 @@ namespace Rambler.Cinema.OwinService.Extensions
                 throw new ArgumentNullException(nameof(app));
 
             var configuration = new HttpConfiguration();
+            
+            app.UseDependencyResolver(configuration, opt.Resolver);
 
-            var windsorContainer = WindsorConfig.Configure(opt);
-            app.UseWindsorDependencyResolverScope(configuration, windsorContainer);
+            var fac = opt.Resolver.GetService<ILoggerFactory>();
+            app.SetLoggerFactory(fac);            
+
+            var logger = fac.Create(LoggerNames.CinemaCore);
+            logger.WriteInformation("Configuring Cinema Owin service");
+
+            configuration.Services.Add(typeof(IExceptionLogger), opt.Resolver.GetService<IExceptionLogger>());
 
             //adding conversions from Func to OwinMiddleWare and back
-            SignatureConversions.AddConversions(app); 
+            SignatureConversions.AddConversions(app);
 
+            logger.WriteInformation("Adding Cinema Owin service routes");
             RouteConfig.RegisterRoutes(configuration);
+            logger.WriteInformation("Configuring WebApi");
             WebApiConfig.Configure(configuration);
             app.UseWebApi(configuration);
 
             app.UseStageMarker(PipelineStage.MapHandler);
+
+            // clears out the OWIN logger factory so we don't recieve other hosting related logs
+            app.Properties["server.LoggerFactory"] = null;
+
+            logger.WriteInformation("Cinema Owin service was configured");
         }
     }
 }

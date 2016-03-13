@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Http.Dependencies;
 using Castle.Windsor;
 
-namespace Rambler.Cinema.OwinService.Windsor
+namespace Rambler.WindsorHelpers
 {
     public sealed class WindsorDependencyResolver: IDependencyResolver, IServiceProvider
     {

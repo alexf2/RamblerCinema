@@ -46,8 +46,17 @@
     <DocumentationFile>bin\Rambler.Cinema.IisHost.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core">
-      <HintPath>..\..\..\libs\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Facilities.Logging">
+      <HintPath>..\..\..\libs\Castle.LoggingFacility.3.3.0\lib\net45\Castle.Facilities.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Services.Logging.NLogIntegration">
+      <HintPath>..\..\..\libs\Castle.Core-NLog.3.3.3\lib\net45\Castle.Services.Logging.NLogIntegration.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Castle.Windsor">
@@ -67,11 +76,26 @@
       <HintPath>..\..\..\libs\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\..\..\libs\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Owin">
       <HintPath>..\..\..\libs\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -80,6 +104,11 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -88,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Nlog.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -99,11 +129,17 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HostInstaller.cs" />
+    <Compile Include="BootstrapLogger.cs" />
+    <Compile Include="IisHostInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="WindsorConfig.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Contracts\Rambler.Shared.Contract\Rambler.Shared.Contract.csproj">
+      <Project>{1A19BA64-13FC-4781-9FB6-792B6158D8DB}</Project>
+      <Name>Rambler.Shared.Contract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\Rambler.Cinema.Core.Contract\Rambler.Cinema.Core.Contract.csproj">
       <Project>{76E79584-24E9-4B7C-93F7-34779DC7D83F}</Project>
       <Name>Rambler.Cinema.Core.Contract</Name>
@@ -116,6 +152,21 @@
       <Project>{60a9a2e1-986b-47cf-8212-595312a53e41}</Project>
       <Name>Rambler.Cinema.OwinService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Core\Rambler.Cinrma.WindsorInstaller\Rambler.Cinrma.WindsorInstaller.csproj">
+      <Project>{7b7dc57a-0fb4-4180-88a3-4b476a3ec7e0}</Project>
+      <Name>Rambler.Cinrma.WindsorInstaller</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SharedHelpers\Rambler.WebApiHelpers\Rambler.WebApiHelpers.csproj">
+      <Project>{c2e3b2e3-b154-4bd1-a79e-cc9a1c33422a}</Project>
+      <Name>Rambler.WebApiHelpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SharedHelpers\Rambler.WindsorHelpers\Rambler.WindsorHelpers.csproj">
+      <Project>{de29e0a6-dcef-411c-aa6a-504c24c61240}</Project>
+      <Name>Rambler.WindsorHelpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
