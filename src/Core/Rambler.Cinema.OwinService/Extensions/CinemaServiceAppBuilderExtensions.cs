@@ -20,7 +20,9 @@ namespace Rambler.Cinema.OwinService.Extensions
                 throw new ArgumentNullException(nameof(app));
 
             var configuration = new HttpConfiguration();
-            
+
+            //configuration.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Never;
+
             app.UseDependencyResolver(configuration, opt.Resolver);
 
             var fac = opt.Resolver.GetService<ILoggerFactory>();
@@ -29,7 +31,10 @@ namespace Rambler.Cinema.OwinService.Extensions
             var logger = fac.Create(LoggerNames.CinemaCore);
             logger.WriteInformation("Configuring Cinema Owin service");
 
-            configuration.Services.Add(typeof(IExceptionLogger), opt.Resolver.GetService<IExceptionLogger>());
+            if (opt.ExceptionLogger != null)
+                configuration.Services.Replace(typeof(IExceptionLogger), opt.ExceptionLogger);
+            if (opt.ExceptionHandler != null)
+                configuration.Services.Replace(typeof(IExceptionHandler), opt.ExceptionHandler);
 
             //adding conversions from Func to OwinMiddleWare and back
             SignatureConversions.AddConversions(app);

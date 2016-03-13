@@ -5,7 +5,7 @@ using Rambler.WebApiHelpers;
 
 namespace Rambler.WindsorHelpers
 {
-    public class WindsorLoggerFactoryAdapter: IExtendedLoggerFactory
+    public sealed class WindsorLoggerFactoryAdapter: IExtendedLoggerFactory
     {
         readonly Castle.Core.Logging.ILoggerFactory _wfac;
         public WindsorLoggerFactoryAdapter(Castle.Core.Logging.ILoggerFactory wfac)

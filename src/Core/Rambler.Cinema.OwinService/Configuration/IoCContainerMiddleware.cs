@@ -19,7 +19,7 @@ namespace Rambler.Cinema.OwinService.Configuration
             context.SetDependencyResolver(_resolver);
             using (var scope = _resolver.BeginScope())
             {
-                await Next.Invoke(context);
+                await Next.Invoke(context).ConfigureAwait(false);
             }
         }
     }

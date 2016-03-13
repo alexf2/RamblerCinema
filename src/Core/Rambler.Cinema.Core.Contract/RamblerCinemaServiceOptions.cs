@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Http.Dependencies;
+using System.Web.Http.ExceptionHandling;
 
 namespace Rambler.Cinema.Core.Contract
 {
@@ -14,5 +15,8 @@ namespace Rambler.Cinema.Core.Contract
         }
         
         public IDependencyResolver Resolver { get; private set; }
+
+        public IExceptionLogger ExceptionLogger { get; set; }
+        public IExceptionHandler ExceptionHandler { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -9,42 +10,45 @@ using System.Web.Http.Dispatcher;
 
 namespace Rambler.WebApiHelpers
 {
-    public class OptionsHandler : DelegatingHandler
+    public class OptionsHandler: DelegatingHandler
     {
-        protected override async Task<HttpResponseMessage> SendAsync(
-            HttpRequestMessage request, CancellationToken cancellationToken)
-        {            
-            return await base.SendAsync(request, cancellationToken).ContinueWith(
-                task =>
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            var res1 = await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
+
+            if (request.Method == HttpMethod.Options)
+            {
+                return await Task.Run(() =>
                 {
-                    var response = task.Result;
-                    if (request.Method == HttpMethod.Options)
-                    {
-                        var methods = new ActionSelector(request).GetSupportedMethods();
-                        if (!string.IsNullOrEmpty(methods))
-                        {
-                            var res = new HttpResponseMessage(HttpStatusCode.OK);
-                            res.Headers.Add("Allow", methods + ",OPTIONS");
-                            return res;
-                        }
-                    }
-                    return response;
-                }, cancellationToken);
+                    var methods = new ActionSelector(request).GetSupportedMethods();
+                    
+                    var res = new HttpResponseMessage(HttpStatusCode.OK);
+                    res.Content = new StringContent(string.Empty);
+                    res.Content.Headers.Add("Allow", methods);
+                    res.Content.Headers.Add("Allow", "OPTIONS");
+
+                    return res;
+                }).ConfigureAwait(false);
+            }
+            else
+                return res1;
         }
 
         private class ActionSelector
         {
-            private readonly HttpRequestMessage _request;
-            private readonly HttpControllerContext _context;
-            private readonly ApiControllerActionSelector _apiSelector;
-            private static readonly string[] Methods = { "GET", "PUT", "POST", "PATCH", "DELETE", "HEAD", "TRACE" };
+            readonly HttpRequestMessage _request;
+            readonly HttpControllerContext _context;
+            readonly ApiControllerActionSelector _apiSelector;
+            static readonly string[] Methods = { "GET", "PUT", "POST", "PATCH", "DELETE", "HEAD", "TRACE" };
 
             public ActionSelector(HttpRequestMessage request)
             {
                 try
                 {
-                    var configuration = request.Properties["MS_HttpConfiguration"] as HttpConfiguration;
-                    var requestContext = request.Properties["MS_RequestContext"] as HttpRequestContext;
+                    
+                    var configuration = request.GetConfiguration();
+                    var requestContext = request.GetRequestContext();
+                        
                     var controllerDescriptor = new DefaultHttpControllerSelector(configuration).SelectController(request);
 
                     _context = new HttpControllerContext
@@ -64,9 +68,9 @@ namespace Rambler.WebApiHelpers
                 _apiSelector = new ApiControllerActionSelector();
             }
 
-            public string GetSupportedMethods()
+            public IEnumerable<string> GetSupportedMethods()
             {
-                return _request == null ? null : string.Join(",", Methods.Where(IsMethodSupported));
+                return _request == null ? new string[] {} : Methods.Where(IsMethodSupported);
             }
 
             private bool IsMethodSupported(string method)

@@ -4,16 +4,11 @@ namespace Rambler.WindsorHelpers
 {
     public static class BootstrapLogger
     {
-        static readonly NLog.Logger _logger;
-
         static BootstrapLogger()
         {
-            _logger = NLog.LogManager.GetLogger(LoggerNames.Bootstrap);
+            Instance = NLog.LogManager.GetLogger(LoggerNames.Bootstrap);
         }
 
-        public static NLog.Logger Instance
-        {
-            get { return _logger; }
-        }
+        public static NLog.Logger Instance { get; }
     }
 }
