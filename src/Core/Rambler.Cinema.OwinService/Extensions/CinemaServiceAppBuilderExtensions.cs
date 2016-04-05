@@ -21,6 +21,8 @@ namespace Rambler.Cinema.OwinService.Extensions
 
             var configuration = new HttpConfiguration();
 
+            SwaggerConfig.Register(configuration);
+
             //configuration.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Never;
 
             app.UseDependencyResolver(configuration, opt.Resolver);

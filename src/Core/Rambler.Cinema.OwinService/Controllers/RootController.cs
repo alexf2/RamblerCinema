@@ -15,17 +15,26 @@ namespace Rambler.Cinema.OwinService.Controllers
             _prov = prov;
         }
 
+        /// <summary>
+        /// Returns service information and version.
+        /// </summary>
+        /// <returns>ServiceInfo</returns>
         [ResponseType(typeof(ServiceInfo))]
-        public IHttpActionResult Get()
+        public IHttpActionResult Get ()
         {
             return Ok(new ServiceInfo()
             {
                 ApplicationName = "Rambler.Cinema service",
                 ApiVersion = VersionHelpers.GetProductVersion(GetType().Assembly),
-                Links = new {}
+                Links = new { Self = Url.Route("ApiRootRoute", null) }
             });
         }
 
+        /// <summary>
+        /// A test hello methods, which return an echo.
+        /// </summary>
+        /// <param name="name">An arbitrary word to echo</param>
+        /// <returns>Hello {name}!</returns>
         [HttpGet]
         public IHttpActionResult Hello (string name)
         {
