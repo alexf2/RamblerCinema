@@ -109,15 +109,15 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
                 "dbo.Session",
                 c => new
                     {
-                        StartTime = c.DateTime(nullable: false),
-                        FilmId = c.Int(nullable: false),
                         CinemaId = c.Int(nullable: false),
+                        FilmId = c.Int(nullable: false),
+                        StartTime = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => new { t.StartTime, t.FilmId, t.CinemaId })
+                .PrimaryKey(t => new { t.CinemaId, t.FilmId, t.StartTime })
                 .ForeignKey("dbo.Cinema", t => t.CinemaId, cascadeDelete: true)
                 .ForeignKey("dbo.Film", t => t.FilmId, cascadeDelete: true)
-                .Index(t => t.FilmId)
-                .Index(t => t.CinemaId);
+                .Index(t => t.CinemaId, name: "IX_Session_CinemaId")
+                .Index(t => t.FilmId);
             
             CreateTable(
                 "dbo.Film",
@@ -222,8 +222,8 @@ namespace Rambler.Cinema.EntFrameworkDB.Migrations
             DropIndex("dbo.Film", new[] { "ProducerId" });
             DropIndex("dbo.Film", "IX_Film_YearFilmed");
             DropIndex("dbo.Film", "IX_Film_Name");
-            DropIndex("dbo.Session", new[] { "CinemaId" });
             DropIndex("dbo.Session", new[] { "FilmId" });
+            DropIndex("dbo.Session", "IX_Session_CinemaId");
             DropIndex("dbo.Phone", "UX_Phone_Number");
             DropIndex("dbo.Department", "UX_Department_Name");
             DropIndex("dbo.Person", new[] { "DepartmentId" });

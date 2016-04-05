@@ -9,7 +9,7 @@ namespace Rambler.Cinema.DAL.Entities
     public class Session
     {
         [Required]
-        [Key, Column(Order = 0)]
+        [Key, Column(Order = 2)]
         public virtual DateTime StartTime { get; set; }
 
         [Key, Column(Order = 1)]
@@ -18,7 +18,7 @@ namespace Rambler.Cinema.DAL.Entities
         [Required]
         public virtual Film Film { get; set; }
 
-        [Key, Column(Order = 2)]
+        [Key, Column(Order = 0)]        
         public virtual int CinemaId { get; set; }
         [ForeignKey("CinemaId")]
         [Required]
